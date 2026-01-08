@@ -3,403 +3,492 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YALA: The Amazon of ASEAN - ประสบการณ์ล้ำค่าแดนใต้</title>
+    <title>YALA PREMIUM - Beyond the Destination</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,600&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        /* --- RESET & VARIABLES --- */
         :root {
-            --primary-color: #0f3d3e; /* Deep Emerald Green */
-            --accent-color: #d4af37; /* Luxury Gold */
-            --bg-color: #f9f9f7; /* Soft Cream */
-            --text-color: #333333;
+            --primary: #1a1a1a; /* Charcoal Black */
+            --gold: #bd9b60;    /* Muted Gold */
+            --gold-light: #f3e5c2;
             --white: #ffffff;
-            --transition: all 0.4s ease;
+            --gray: #f4f4f4;
+            --glass: rgba(255, 255, 255, 0.1);
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; list-style: none; }
 
         body {
-            font-family: 'Kanit', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--white);
+            color: var(--primary);
             overflow-x: hidden;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-color);
+        h1, h2, h3, .serif-font {
+            font-family: 'Cormorant Garamond', serif;
         }
 
-        /* --- Animations --- */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.4s ease;
         }
 
-        .reveal {
-            opacity: 0;
-            transition: var(--transition);
+        .navbar.scrolled {
+            background: var(--white);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 15px 8%;
         }
 
-        .reveal.active {
-            opacity: 1;
-            animation: fadeUp 1s forwards;
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 2px;
+            transition: 0.4s;
         }
 
-        /* --- Header / Hero Section --- */
-        header {
+        .navbar.scrolled .logo { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            color: var(--white);
+            font-weight: 300;
+            font-size: 1rem;
+            position: relative;
+            transition: 0.3s;
+        }
+        
+        .navbar.scrolled .nav-links a { color: var(--primary); }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            bottom: -5px;
+            left: 0;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        /* --- HERO SECTION --- */
+        .hero {
             height: 100vh;
-            background: linear-gradient(rgba(15, 61, 62, 0.6), rgba(15, 61, 62, 0.4)), url('https://images.unsplash.com/photo-1590623223947-0e6d6350d75a?q=80&w=1920&auto=format&fit=crop'); /* Placeholder image representing mist/nature */
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1533687332214-72da970d4c06?q=80&w=1920&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             text-align: center;
             color: var(--white);
             position: relative;
         }
 
-        header h1 {
-            font-size: 4rem;
-            color: var(--white);
-            letter-spacing: 2px;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        .hero-content h1 {
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease forwards;
         }
 
-        header p {
-            font-size: 1.5rem;
+        .hero-content p {
+            font-size: 1.2rem;
             font-weight: 300;
-            margin-bottom: 2rem;
-        }
-
-        .btn-gold {
-            padding: 12px 35px;
-            background-color: transparent;
-            border: 2px solid var(--accent-color);
-            color: var(--accent-color);
-            font-size: 1.1rem;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-block;
+            margin-bottom: 40px;
+            color: var(--gold-light);
+            animation: fadeInUp 1.2s ease forwards;
         }
 
-        .btn-gold:hover {
-            background-color: var(--accent-color);
+        .btn-luxury {
+            padding: 15px 40px;
+            border: 1px solid var(--white);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
             color: var(--white);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.4s;
         }
 
-        /* --- Infographic Stats Section --- */
-        .info-bar {
-            background-color: var(--white);
-            padding: 4rem 2rem;
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            flex-wrap: wrap;
-            margin-top: -50px;
+        .btn-luxury:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--primary);
+        }
+
+        /* --- INFOGRAPHIC STATS --- */
+        .stats-section {
+            padding: 80px 8%;
+            background: var(--white);
+            transform: translateY(-50px);
             position: relative;
             z-index: 10;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 8px;
         }
 
-        .stat-item {
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            background: var(--white);
+            padding: 50px;
+            box-shadow: var(--shadow);
+            border-top: 3px solid var(--gold);
+        }
+
+        .stat-box {
             text-align: center;
-            flex: 1;
-            min-width: 200px;
+            padding: 20px;
+            border-right: 1px solid #eee;
         }
 
-        .stat-item i {
+        .stat-box:last-child { border-right: none; }
+
+        .stat-box i {
             font-size: 2.5rem;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
+            color: var(--gold);
+            margin-bottom: 15px;
         }
 
-        .stat-item h3 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
+        .stat-box h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
         }
 
-        .stat-item p {
+        .stat-box p {
             font-size: 0.9rem;
             color: #777;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        /* --- Content Section --- */
-        .container {
-            max-width: 1200px;
-            margin: 5rem auto;
-            padding: 0 2rem;
+        /* --- HIGHLIGHT SECTION (Alternating) --- */
+        .highlight {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 50px 8%;
+            align-items: center;
+            margin-bottom: 50px;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            position: relative;
-            padding-bottom: 1rem;
-        }
+        .highlight.reverse { flex-direction: row-reverse; }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: var(--accent-color);
-        }
-
-        /* --- Cards Grid --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .card {
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
-            transition: var(--transition);
-            position: relative;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(15, 61, 62, 0.2);
-        }
-
-        .card-img {
-            height: 250px;
+        .highlight-img {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
             background-size: cover;
             background-position: center;
             position: relative;
         }
 
-        /* Badges for Infographic Feel */
-        .badge {
+        .highlight-img::before {
+            content: '';
             position: absolute;
             top: 20px;
-            right: 20px;
-            background-color: var(--white);
-            color: var(--primary-color);
+            left: 20px;
+            width: 100%;
+            height: 100%;
+            border: 1px solid var(--gold);
+            z-index: -1;
+            transition: 0.3s;
+        }
+        
+        .highlight:hover .highlight-img::before {
+            top: 10px; left: 10px;
+        }
+
+        .highlight-text {
+            flex: 1;
+            padding: 50px;
+            min-width: 300px;
+        }
+
+        .highlight-text h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .highlight-text p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .badge {
+            background: var(--primary);
+            color: var(--gold);
             padding: 5px 15px;
-            border-radius: 50px;
             font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .card-content {
-            padding: 2rem;
-        }
-
-        .card-content h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
-        }
-
-        .card-content .location {
-            color: var(--accent-color);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
         }
 
-        .card-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1.5rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-            font-size: 0.85rem;
-            color: #666;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 4rem 2rem;
+        /* --- GALLERY GRID --- */
+        .gallery-section {
+            padding: 80px 8%;
+            background: var(--gray);
             text-align: center;
-            margin-top: 5rem;
         }
 
-        footer p {
-            opacity: 0.8;
-            margin-top: 1rem;
+        .section-head { margin-bottom: 60px; }
+        .section-head h2 { font-size: 3rem; margin-bottom: 10px; }
+        .section-head span { color: var(--gold); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
 
-        .social-icons {
-            margin-top: 2rem;
+        .grid-item {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            cursor: pointer;
         }
 
-        .social-icons a {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            margin: 0 10px;
-            transition: var(--transition);
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.6s;
         }
 
-        .social-icons a:hover {
+        .grid-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             color: var(--white);
+            opacity: 0;
+            transition: 0.4s;
         }
 
-        /* --- Mobile Responsive --- */
+        .grid-item:hover img { transform: scale(1.1); }
+        .grid-item:hover .grid-overlay { opacity: 1; }
+
+        .grid-overlay h3 { font-size: 2rem; margin-bottom: 10px; transform: translateY(20px); transition: 0.4s; }
+        .grid-overlay p { font-size: 0.9rem; transform: translateY(20px); transition: 0.4s 0.1s; }
+        
+        .grid-item:hover .grid-overlay h3,
+        .grid-item:hover .grid-overlay p { transform: translateY(0); }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 60px 8% 20px;
+            text-align: center;
+        }
+
+        .footer-logo { font-size: 2.5rem; font-family: 'Cormorant Garamond', serif; margin-bottom: 20px; color: var(--gold); }
+        .footer-links { margin-bottom: 40px; }
+        .footer-links a { color: #999; margin: 0 15px; transition: 0.3s; }
+        .footer-links a:hover { color: var(--white); }
+        .copyright { border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem; color: #555; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
-            header h1 { font-size: 2.5rem; }
-            .info-bar { flex-direction: column; gap: 2rem; margin-top: 0; border-radius: 0; }
+            .hero-content h1 { font-size: 3rem; }
+            .stats-container { grid-template-columns: 1fr; border-right: none; }
+            .stat-box { border-right: none; border-bottom: 1px solid #eee; }
+            .highlight { flex-direction: column !important; }
+            .highlight-img { width: 100%; height: 300px; margin-bottom: 30px; }
+            .highlight-text { padding: 0; text-align: center; }
+            .navbar { padding: 15px 5%; }
+            .nav-links { display: none; } /* Hide links on mobile for simple view */
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="reveal">
-            <p>ยินดีต้อนรับสู่ดินแดนใต้สุดสยาม</p>
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">YALA<span style="color:var(--gold)">.</span></a>
+        <ul class="nav-links">
+            <li><a href="#home">หน้าหลัก</a></li>
+            <li><a href="#about">ข้อมูลจังหวัด</a></li>
+            <li><a href="#destinations">สถานที่ท่องเที่ยว</a></li>
+            <li><a href="#contact">ติดต่อ</a></li>
+        </ul>
+        <div style="display: md-none;"></div> </nav>
+
+    <header class="hero" id="home">
+        <div class="hero-content">
+            <p>The Southernmost Gem</p>
             <h1>YALA LUXURY</h1>
-            <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem auto;">
-                สัมผัสเสน่ห์แห่งธรรมชาติ อารยธรรมที่ผสมผสาน และความงดงามที่ซ่อนอยู่ในหุบเขา
-            </p>
-            <a href="#destinations" class="btn-gold">สำรวจสถานที่</a>
+            <a href="#destinations" class="btn-luxury">DISCOVER MORE</a>
         </div>
     </header>
 
-    <div class="info-bar reveal">
-        <div class="stat-item">
-            <i class="fa-solid fa-cloud-sun"></i>
-            <h3>24°C</h3>
-            <p>อุณหภูมิเฉลี่ยตลอดปี</p>
+    <section class="stats-section" id="about">
+        <div class="stats-container">
+            <div class="stat-box">
+                <i class="fa-solid fa-mountain-sun"></i>
+                <h3>956</h3>
+                <p>เมตร (ระดับความสูง Skywalk)</p>
+            </div>
+            <div class="stat-box">
+                <i class="fa-solid fa-tree"></i>
+                <h3>10+</h3>
+                <p>อุทยานและป่าธรรมชาติ</p>
+            </div>
+            <div class="stat-box">
+                <i class="fa-solid fa-handshake-simple"></i>
+                <h3>3</h3>
+                <p>วัฒนธรรมที่ผสมผสาน</p>
+            </div>
+            <div class="stat-box">
+                <i class="fa-regular fa-face-smile"></i>
+                <h3>100%</h3>
+                <p>ความประทับใจ</p>
+            </div>
         </div>
-        <div class="stat-item">
-            <i class="fa-solid fa-tree"></i>
-            <h3>70%</h3>
-            <p>พื้นที่ป่าไม้สมบูรณ์</p>
-        </div>
-        <div class="stat-item">
-            <i class="fa-solid fa-map-location-dot"></i>
-            <h3>1,084</h3>
-            <p>กม. จากกรุงเทพฯ</p>
-        </div>
-    </div>
+    </section>
 
-    <div class="container" id="destinations">
-        <h2 class="section-title reveal">Unseen Destinations</h2>
-        
-        <div class="grid">
+    <section class="highlight">
+        <div class="highlight-img" style="background-image: url('https://images.unsplash.com/photo-1596708304724-c15c54536768?q=80&w=800&auto=format&fit=crop');"></div>
+        <div class="highlight-text">
+            <span class="badge">Must Visit</span>
+            <h2>Aiyerweng Skywalk</h2>
+            <p>จุดชมทะเลหมอกที่งดงามที่สุดในอาเซียน สัมผัสอากาศบริสุทธิ์และวิวทิวทัศน์ 360 องศาบนทางเดินกระจกที่ทอดยาวไปในเวหา สัมผัสประสบการณ์ที่เหมือนการเดินบนก้อนเมฆ</p>
+            <a href="#" style="color: var(--primary); font-weight: 600; border-bottom: 2px solid var(--gold);">ดูรายละเอียด <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <section class="highlight reverse">
+        <div class="highlight-img" style="background-image: url('https://images.unsplash.com/photo-1558507851-f2f0a1c97a82?q=80&w=800&auto=format&fit=crop');"></div>
+        <div class="highlight-text">
+            <span class="badge">Culture & History</span>
+            <h2>Betong City</h2>
+            <p>เมืองในหมอกที่มีเสน่ห์ด้วยสถาปัตยกรรมชิโน-โปรตุกีส อุโมงค์เบตงมงคลฤทธิ์ และอาหารอันเลื่องชื่ออย่างไก่เบตง สัมผัสวิถีชีวิต slow life ที่เต็มไปด้วยเรื่องราวประวัติศาสตร์</p>
+            <a href="#" style="color: var(--primary); font-weight: 600; border-bottom: 2px solid var(--gold);">ดูรายละเอียด <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <section class="destinations" id="destinations">
+        <div class="gallery-section">
+            <div class="section-head">
+                <span>Explore the Unseen</span>
+                <h2>Gallery of Nature</h2>
+            </div>
             
-            <div class="card reveal" onclick="alert('Skywalk อัยเยอร์เวง: จุดชมทะเลหมอกที่ยาวที่สุดในอาเซียน เปิดให้เข้าชมตั้งแต่ 05.30 น.')">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=800&auto=format&fit=crop');">
-                    <span class="badge">Highlight</span>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <img src="https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=800&auto=format&fit=crop" alt="Forest">
+                    <div class="grid-overlay">
+                        <h3>Hala-Bala</h3>
+                        <p>ผืนป่าฮาลา-บาลา</p>
+                    </div>
                 </div>
-                <div class="card-content">
-                    <div class="location">อ.เบตง</div>
-                    <h3>Skywalk อัยเยอร์เวง</h3>
-                    <p>สัมผัสทะเลหมอก 360 องศา บนทางเดินกระจกลอยฟ้าที่ยาวที่สุดในอาเซียน</p>
-                    <div class="card-stats">
-                        <span><i class="fa-regular fa-clock"></i> 05:30 - 16:00</span>
-                        <span><i class="fa-solid fa-star" style="color:var(--accent-color)"></i> 4.9</span>
+                <div class="grid-item">
+                    <img src="https://images.unsplash.com/photo-1501869374092-23c28a2a8656?q=80&w=800&auto=format&fit=crop" alt="Flower">
+                    <div class="grid-overlay">
+                        <h3>Flowers</h3>
+                        <p>สวนหมื่นบุปผา</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <img src="https://images.unsplash.com/photo-1596708304724-c15c54536768?q=80&w=800&auto=format&fit=crop" alt="Mist">
+                    <div class="grid-overlay">
+                        <h3>Sea of Mist</h3>
+                        <p>ทะเลหมอก</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <img src="https://images.unsplash.com/photo-1582234080922-0d19f3908871?q=80&w=800&auto=format&fit=crop" alt="City">
+                    <div class="grid-overlay">
+                        <h3>City Life</h3>
+                        <p>ตัวเมืองยะลา</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <img src="https://images.unsplash.com/photo-1563804803975-d178f5ae2289?q=80&w=800&auto=format&fit=crop" alt="Bridge">
+                    <div class="grid-overlay">
+                        <h3>Bridge</h3>
+                        <p>สะพานข้ามเขื่อน</p>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?q=80&w=800&auto=format&fit=crop" alt="Temple">
+                    <div class="grid-overlay">
+                        <h3>Culture</h3>
+                        <p>วัดและมัสยิด</p>
                     </div>
                 </div>
             </div>
-
-            <div class="card reveal" onclick="alert('ป่าฮาลา-บาลา: ฉายา อเมซอนแห่งอาเซียน เป็นที่อยู่ของนกเงือกกว่า 10 สายพันธุ์')">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1448375240586-dfd8f3793371?q=80&w=800&auto=format&fit=crop');">
-                    <span class="badge">Nature</span>
-                </div>
-                <div class="card-content">
-                    <div class="location">อ.เบตง - นราธิวาส</div>
-                    <h3>ป่าฮาลา-บาลา</h3>
-                    <p>อเมซอนแห่งอาเซียน ผืนป่าดงดิบที่อุดมสมบูรณ์ที่สุดในภาคใต้ตอนล่าง</p>
-                    <div class="card-stats">
-                        <span><i class="fa-solid fa-person-hiking"></i> Trekking</span>
-                        <span><i class="fa-solid fa-leaf"></i> Eco-Tourism</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card reveal" onclick="alert('สวนหมื่นบุปผา: สวนดอกไม้เมืองหนาวแห่งเดียวในภาคใต้')">
-                <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=800&auto=format&fit=crop');">
-                    <span class="badge">Photography</span>
-                </div>
-                <div class="card-content">
-                    <div class="location">หมู่บ้านปิยะมิตร 2</div>
-                    <h3>สวนหมื่นบุปผา</h3>
-                    <p>สวนดอกไม้เมืองหนาวท่ามกลางขุนเขา ความงามที่บานสะพรั่งตลอดทั้งปี</p>
-                    <div class="card-stats">
-                        <span><i class="fa-solid fa-camera"></i> Photo Spot</span>
-                        <span><i class="fa-solid fa-temperature-low"></i> Cool</span>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </div>
+    </section>
 
-    <div style="background-color: var(--primary-color); padding: 5rem 2rem; text-align: center; color: white;" class="reveal">
-        <h2 style="color: var(--accent-color); margin-bottom: 1rem;">พร้อมสัมผัสประสบการณ์จริงหรือยัง?</h2>
-        <p style="margin-bottom: 2rem; opacity: 0.9;">วางแผนการเดินทางของคุณสู่อัญมณีแห่งปลายด้ามขวาน</p>
-        <a href="#" class="btn-gold" style="background-color: var(--accent-color); color: var(--primary-color);">จองตริปการเดินทาง</a>
-    </div>
-
-    <footer>
-
-        
-        <h2 style="color: var(--white); font-size: 2rem;">YALAaaaaa</h2>
-        <div class="social-icons">
-            <a href="#"><i class="fa-brands fa-facebook"></i></a>
-            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#"><i class="fa-brands fa-twitter"></i></a>
+    <footer id="contact">
+        <div class="footer-logo">YALA.</div>
+        <div class="footer-links">
+            <a href="#">หน้าหลัก</a>
+            <a href="#">เกี่ยวกับเรา</a>
+            <a href="#">นโยบายความเป็นส่วนตัว</a>
+            <a href="#">ติดต่อโฆษณา</a>
         </div>
-        <p>&copy; 2024 Yala Tourism Board. Designed with Luxury Concept.</p>
+        <div class="copyright">
+            <p>&copy; 2025 Yala Tourism Project. All Rights Reserved. Created by Expert Developer.</p>
+        </div>
     </footer>
 
     <script>
-        // Scroll Reveal Animation Script
-        window.addEventListener('scroll', reveal);
-
-        function reveal() {
-            var reveals = document.querySelectorAll('.reveal');
-
-            for (var i = 0; i < reveals.length; i++) {
-                var windowheight = window.innerHeight;
-                var revealtop = reveals[i].getBoundingClientRect().top;
-                var revealpoint = 150;
-
-                if (revealtop < windowheight - revealpoint) {
-                    reveals[i].classList.add('active');
-                } else {
-                    reveals[i].classList.remove('active');
-                }
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
-        }
+        });
 
-        // Trigger reveal on load
-        reveal();
+        // Simple smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
+
 </body>
 </html>
