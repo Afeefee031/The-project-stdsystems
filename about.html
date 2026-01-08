@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About YALA - ประวัติและข้อมูลจังหวัด</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- RESET & VARIABLES (ชุดเดิมทั้งหมด) --- */
+        :root {
+            --primary: #1a1a1a;
+            --gold: #bd9b60;
+            --gold-light: #f3e5c2;
+            --white: #ffffff;
+            --gray: #f4f4f4;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; list-style: none; }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--white);
+            color: var(--primary);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .serif-font { font-family: 'Cormorant Garamond', serif; }
+
+        /* --- NAVBAR (Copy จาก index.html) --- */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 20px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; transition: 0.4s ease;
+        }
+
+        .navbar.scrolled {
+            background: var(--white);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            padding: 15px 8%;
+        }
+
+        .logo { font-size: 1.8rem; font-weight: 700; color: var(--white); letter-spacing: 2px; transition: 0.4s; }
+        .navbar.scrolled .logo { color: var(--primary); }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--white); font-weight: 300; position: relative; transition: 0.3s; }
+        .navbar.scrolled .nav-links a { color: var(--primary); }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 1px; background: var(--gold); bottom: -5px; left: 0; transition: 0.3s; }
+        .nav-links a:hover::after { width: 100%; }
+        
+        /* Active Link Style */
+        .nav-links a.active { color: var(--gold) !important; }
+
+        /* --- PAGE HEADER (เฉพาะหน้านี้) --- */
+        .page-header {
+            height: 60vh; /* ความสูงน้อยกว่าหน้าแรก */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1599583232773-8d6934c5625e?q=80&w=1920&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .page-header h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        /* --- MOTTO SECTION --- */
+        .motto-section {
+            padding: 80px 15%;
+            text-align: center;
+            background-color: var(--white);
+        }
+
+        .motto-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--primary);
+            line-height: 1.4;
+            margin-bottom: 30px;
+        }
+
+        .motto-divider {
+            width: 100px;
+            height: 3px;
+            background-color: var(--gold);
+            margin: 0 auto;
+        }
+
+        /* --- CONTENT BLOCKS --- */
+        .content-section {
+            padding: 0 8% 80px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .info-text h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .info-text p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .info-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 4px; /* Slight radius */
+            box-shadow: 20px 20px 0px var(--gray); /* Abstract shadow */
+        }
+
+        /* Reverse Layout */
+        .info-grid.reverse .info-text { order: 2; }
+        .info-grid.reverse .info-img { order: 1; box-shadow: -20px 20px 0px var(--gray); }
+
+        /* --- SYMBOLS --- */
+        .symbols-section {
+            background-color: var(--gray);
+            padding: 80px 8%;
+            text-align: center;
+        }
+        
+        .symbols-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .symbol-card {
+            background: var(--white);
+            padding: 40px 20px;
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .symbol-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 3px solid var(--gold);
+            box-shadow: var(--shadow);
+        }
+
+        .symbol-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .symbol-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- FOOTER (Copy จาก index.html) --- */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 60px 8% 20px;
+            text-align: center;
+        }
+        .footer-logo { font-size: 2.5rem; font-family: 'Cormorant Garamond', serif; margin-bottom: 20px; color: var(--gold); }
+        .footer-links a { color: #999; margin: 0 15px; transition: 0.3s; }
+        .footer-links a:hover { color: var(--white); }
+        .copyright { border-top: 1px solid #333; padding-top: 20px; font-size: 0.8rem; color: #555; margin-top: 40px;}
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .info-grid, .info-grid.reverse { grid-template-columns: 1fr; }
+            .info-grid.reverse .info-text { order: 1; }
+            .info-grid.reverse .info-img { order: 2; }
+            .page-header h1 { font-size: 3rem; }
+            .motto-text { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo">YALA<span style="color:var(--gold)">.</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">หน้าหลัก</a></li>
+            <li><a href="about.html" class="active">ข้อมูลจังหวัด</a></li>
+            <li><a href="index.html#destinations">สถานที่ท่องเที่ยว</a></li>
+            <li><a href="#contact">ติดต่อ</a></li>
+        </ul>
+    </nav>
+
+    <header class="page-header">
+        <div>
+            <h1>The Heritage</h1>
+            <p style="letter-spacing: 3px; text-transform: uppercase;">เรื่องราวแห่งยะลา</p>
+        </div>
+    </header>
+
+    <section class="motto-section">
+        <div class="motto-text">
+            " ใต้สุดสยาม เมืองงามชายแดน <br>
+            สันเขื่อนงามตา บูดูสะอาดตา <br>
+            เงาะกองกอง ส้มโอดัง "
+        </div>
+        <div class="motto-divider"></div>
+        <p style="margin-top: 20px; color: #999; text-transform: uppercase; font-size: 0.9rem;">คำขวัญประจำจังหวัดยะลา</p>
+    </section>
+
+    <section class="content-section">
+        
+        <div class="info-grid">
+            <div class="info-text">
+                <h2>ประวัติความเป็นมา</h2>
+                <p>ยะลา เป็นจังหวัดที่อยู่ใต้สุดของประเทศไทย คำว่า "ยะลา" มาจากภาษาพื้นเมืองมลายูว่า "ยาลอ" (Jala) แปลว่า "แห" โดยสันนิษฐานว่าภูเขาในพื้นที่นี้มีรูปร่างคล้ายแหที่ใช้จับปลา</p>
+                <p>จังหวัดยะลาเป็นจังหวัดเดียวในภาคใต้ที่ไม่ติดทะเล แต่มีความอุดมสมบูรณ์ของป่าไม้และภูเขาอย่างมาก จนได้รับสมญานามว่า "เมืองงามชายแดน"</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1523731407965-2430cd12f5e4?q=80&w=800&auto=format&fit=crop" class="info-img" alt="Old Town">
+        </div>
+
+        <div class="info-grid reverse">
+            <div class="info-text">
+                <h2>ภูมิศาสตร์และที่ตั้ง</h2>
+                <p>ห่างจากกรุงเทพมหานครประมาณ 1,084 กิโลเมตร มีอาณาเขตติดต่อกับประเทศมาเลเซีย เป็นศูนย์กลางการบริหารราชการในพื้นที่จังหวัดชายแดนภาคใต้</p>
+                <p>ภูมิประเทศส่วนใหญ่เป็นภูเขาและเนินเขา มีที่ราบเพียงเล็กน้อย มีแม่น้ำสายสำคัญคือ แม่น้ำปัตตานี ซึ่งมีต้นกำเนิดจากเทือกเขาสันกาลาคีรี ไหลผ่านตัวเมืองยะลา</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=800&auto=format&fit=crop" class="info-img" alt="Mountains">
+        </div>
+
+    </section>
+
+    <section class="symbols-section">
+        <h2 style="font-size: 2.5rem; margin-bottom: 10px;">สัญลักษณ์ประจำจังหวัด</h2>
+        <p style="margin-bottom: 40px; color: #666;">อัตลักษณ์ที่สะท้อนถึงความอุดมสมบูรณ์</p>
+
+        <div class="symbols-grid">
+            <div class="symbol-card">
+                <i class="fa-solid fa-seedling symbol-icon"></i>
+                <h3>ต้นไม้ประจำจังหวัด</h3>
+                <p>ต้นโสกเหลือง (Saraca Thaipingensis)</p>
+                <p style="font-size: 0.8rem; color: #999; margin-top: 10px;">ดอกไม้สีเหลืองส้ม มีกลิ่นหอม</p>
+            </div>
+            <div class="symbol-card">
+                <i class="fa-solid fa-spa symbol-icon"></i>
+                <h3>ดอกไม้ประจำจังหวัด</h3>
+                <p>ดอกพิกุล (Mimusops Elengi)</p>
+                <p style="font-size: 0.8rem; color: #999; margin-top: 10px;">ดอกไม้ไทยโบราณ กลิ่นหอมเย็น</p>
+            </div>
+            <div class="symbol-card">
+                <i class="fa-solid fa-bullseye symbol-icon"></i>
+                <h3>ตราประจำจังหวัด</h3>
+                <p>รูปเหมืองแร่ดีบุก</p>
+                <p style="font-size: 0.8rem; color: #999; margin-top: 10px;">สะท้อนถึงอาชีพดั้งเดิมที่รุ่งเรือง</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-logo">YALA.</div>
+        <div class="footer-links">
+            <a href="index.html">หน้าหลัก</a>
+            <a href="about.html">ข้อมูลจังหวัด</a>
+            <a href="#">นโยบายความเป็นส่วนตัว</a>
+            <a href="#">ติดต่อโฆษณา</a>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Yala Tourism Project. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</body>
+</html>
